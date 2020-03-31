@@ -58,7 +58,7 @@ export default class Content {
         const terület = oldalA * oldalB;
         const kerület = 2 * (oldalA + oldalB);
         res.write(`Terület = ${terület} \n`);
-        res.write(`Terület = ${kerület} \n`);
+        res.write(`Kerület = ${kerület} \n`);
 
         // <---- Fejezd be a kódolást
 
