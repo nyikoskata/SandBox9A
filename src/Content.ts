@@ -2,6 +2,16 @@
 import http from "http";
 import url from "url";
 
+function osszead(a: number, b: number): number {
+    return a + b;
+}
+function fakrotorialis(n: number): number {
+    let fakt: number = 1;
+    for (let i: number = 2; i <= n; i++) {
+        fakt = fakt * i;
+    }
+    return fakt;
+}
 export default class Content {
     public content(req: http.IncomingMessage, res: http.ServerResponse): void {
         // favicon.ico kérés kiszolgálása:
@@ -150,6 +160,34 @@ export default class Content {
                 if (c != 0) res.write("Ellentmondás !\n");
                 else res.write("Azonosság !\n");
             }
+        }
+        res.write("\n\n");
+
+        res.write("Függvény hívása\n");
+        let x1: number;
+        x1 = 4;
+        x1++; // x1= x1 + 1
+        let x2: number;
+        x2 = 4;
+        x2--; // x2 = x2 + 2
+        const osszeg: number = osszead(x1, x2);
+        res.write(`${x1}+${x2}=${osszeg}\n`);
+        res.write("Szám faktoriálisa\n");
+        res.write("Kérem a számot!\n");
+
+        let n: number = parseInt(params.n as string);
+        if (isNaN(n)) {
+            n = 5;
+        }
+        res.write(`<input type='text' name='n' value=${n} style='width:5em;' onChange='this.form.submit();'>\n`);
+        res.write(`${n}!=${fakrotorialis(n)}`);
+
+        //  Tömbök - összetett adatszerkezet, több adat tárolására alkalmas
+
+        res.write("\nTömbök\n");
+        const nevek: string[] = ["Andi", "Anna", "Bence", "Laci"];
+        for (let i: number = 0; i < nevek.length; i++) {
+            res.write(nevek[i] + "\n");
         }
 
         // <---- Fejezd be a kódolást
