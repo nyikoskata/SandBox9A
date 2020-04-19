@@ -51,7 +51,7 @@ export default class Content {
         // esik = false;
         // res.write(`${!esik}\n`);
 
-        res.write("Téglalap területe ls kerülete\n");
+        res.write("Téglalap területe és kerülete\n");
         res.write("a= ");
         let oldalA: number = parseInt(params.inputa as string);
         if (isNaN(oldalA)) {
@@ -189,6 +189,48 @@ export default class Content {
         for (let i: number = 0; i < nevek.length; i++) {
             res.write(nevek[i] + "\n");
         }
+
+        res.write("\n\nLegnagyobb közös osztó (LNKO) meghatározása kivonásos algoritmussal\n");
+        res.write("k=");
+        let k: number = parseInt(params.k as string);
+        if (isNaN(k)) {
+            k = 20;
+        }
+        res.write(`<input type='text' name='k' value=${k} style='width:5em;' onChange='this.form.submit();'>\n`);
+
+        res.write("l=");
+        let l: number = parseInt(params.l as string);
+        if (isNaN(l)) {
+            l = 60;
+        }
+        res.write(`<input type='text' name='l' value=${l} style='width:5em;' onChange='this.form.submit();'>\n`);
+        while (k != l) {
+            if (k > l) k = k - l;
+            else l = l - k;
+        }
+        res.write(`A két szám LNKO-ja: ${k}`);
+
+        res.write("\n\nLegnagyobb közös osztó (LNKO) meghatározása euklideszi módszerrel\n");
+        res.write("g=");
+        let g: number = parseInt(params.g as string);
+        if (isNaN(g)) {
+            g = 20;
+        }
+        res.write(`<input type='text' name='g' value=${g} style='width:5em;' onChange='this.form.submit();'>\n`);
+
+        res.write("h=");
+        let h: number = parseInt(params.h as string);
+        if (isNaN(h)) {
+            h = 60;
+        }
+        res.write(`<input type='text' name='h' value=${h} style='width:5em;' onChange='this.form.submit();'>\n`);
+        let m: number = parseInt(params.m as string);
+        do {
+            m = g % h; //maradékos osztás
+            g = h; //előző maradék
+            h = m; //új maradék
+        } while (m != 0);
+        res.write(`A két szám LNKO-ja: ${g}`);
 
         // <---- Fejezd be a kódolást
 
