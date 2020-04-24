@@ -186,7 +186,12 @@ export default class Content {
 
         res.write("\nTömbök\n");
         const nevek: string[] = ["Andi", "Anna", "Bence", "Laci"];
-        for (let i: number = 0; i < nevek.length; i++) {
+        res.write(nevek[0] + "\n");
+        res.write(nevek[1] + "\n");
+        res.write(nevek[2] + "\n");
+        res.write(nevek[3] + "\n");
+        res.write("Visszafelé:\n");
+        for (let i: number = nevek.length - 1; i >= 0; i--) {
             res.write(nevek[i] + "\n");
         }
 
@@ -231,6 +236,68 @@ export default class Content {
             h = m; //új maradék
         } while (m != 0);
         res.write(`A két szám LNKO-ja: ${g}`);
+
+        //bejárás tétele
+        res.write("\n\nSzámok vektor bejárása\n\n");
+        const számok: number[] = [23, 67, 33, 77, 88, 73, 21, 20];
+        for (let i = 0; i < számok.length; i++) {
+            res.write(`${számok[i]}, `);
+        }
+        res.write("\n");
+        res.write(számok.toString() + "\n");
+        for (const i of számok) {
+            res.write(`${i}; `);
+        }
+
+        res.write("\n");
+
+        // for in ciklus???
+        for (const i in számok) {
+            const utolsóIndex: number = számok.length - 1;
+            if (parseInt(i) != utolsóIndex) {
+                res.write(`${számok[i]}, `);
+            } else res.write(`${számok[i]} `);
+        }
+        res.write("\n");
+
+        res.write(számok.join(". "));
+
+        //sz.é. keresés algoritmusa
+        //keressük a legnagyobb elem indexét és értékét
+        let maxi = 0;
+        for (let i = 1; i < számok.length; i++) {
+            if (számok[i] > számok[maxi]) {
+                maxi = i;
+            }
+        }
+        res.write(`\n\nA legnagyobb elem értéke: ${számok[maxi]}, indexe: ${maxi}`);
+
+        //minimum kersés
+        let min: number = számok[0];
+        for (let i = 0; i < számok.length; i++) {
+            if (számok[i] < min) {
+                min = számok[i];
+            }
+        }
+        res.write(`\n\nA legkisebb elem értéke: ${min}`);
+
+        //legn. páratlan elem indexe és értéke
+        //nem jelölhetjük ki az első elemet a legnagyobb páratlan számnak
+        let miniPáratlan: number = -1;
+        for (let i = 0; i < számok.length; i++) {
+            if (számok[i] % 2 === 1) {
+                if (miniPáratlan == -1) {
+                    miniPáratlan = i;
+                } else {
+                    if (számok[i] < számok[miniPáratlan]) {
+                        miniPáratlan = i;
+                    }
+                }
+            }
+        }
+        if (miniPáratlan != -1) {
+            res.write(`\n\nA legkisebb páratlan elem értéke: ${számok[miniPáratlan]}, indexe: ${miniPáratlan}\n`);
+        }
 
         // <---- Fejezd be a kódolást
 
